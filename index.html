@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="/dist/app.js"></script>
+</head>
+<body>
+    <template id="add-new-task">
+        <form class="add-new-task" autocomplete="off">
+            <div class="form-control">
+                <input type="text" id="task-content" placeholder="Task Description"/>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    </template>
+    <template id="task-display-template">
+        <li draggable="true">
+          <p id="text" class="task-text"></p>
+          <sub id="time">Created at: </sub>
+        </li>
+    </template>
+    <template id="list-of-tasks">
+        <section class="tasks">
+            <header>
+                <h4></h4>
+            </header>
+            <ul></ul>
+        </section>
+    </template>
+    <header class="title">
+        <h2>To-Do List</h2>
+    </header>
+    <div id="app" class="app"></div>
+</body>
+</html>
