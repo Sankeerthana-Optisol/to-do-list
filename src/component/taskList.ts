@@ -8,6 +8,11 @@ import { DragTarget } from '../interfaces/drag-drop.js'
 import AppComponent from './baseClass.js'
 import SingleTask from './singleTask.js'
 
+/**
+ * Class to manage Active and Completed tasks list, 
+ * inheriting base class, and 
+ * implementing interfaces of drag and drop events function
+ */
 export default class TaskList extends AppComponent<HTMLDivElement, HTMLElement> implements DragTarget{
   	assignedTasks: TaskType[]
 
@@ -19,6 +24,10 @@ export default class TaskList extends AppComponent<HTMLDivElement, HTMLElement> 
   		this.renderContent()
   	}
     
+	/**
+		 * method listening for drag and drop between active and completed task lists
+		 * Add task to the active or completed list based on it's status captured during drag and drop
+		 */
   	configure(): void {
   		this.viewSection.addEventListener('dragover', this.dragOverHandler.bind(this))
   		this.viewSection.addEventListener('dragleave', this.dragLeaveHandler.bind(this))
@@ -35,11 +44,19 @@ export default class TaskList extends AppComponent<HTMLDivElement, HTMLElement> 
   			this.renderTasks()        
   		})
   	}
+
+	/**
+		 * rendering method set heading content on run time
+		 */
   	renderContent(){  
       this.viewSection.querySelector('ul')!.id = this.type
       this.viewSection.querySelector('h4')!.textContent = this.type + ' Tasks'
   	}
 
+	/**
+		 * method to transfer data while dragging the task and add stylings to lists accordingly
+		 * @param event 
+		 */
   	dragOverHandler(event: DragEvent): void {
   		if(event.dataTransfer && event.dataTransfer.types[0] === 'text/plain'){
   			event.preventDefault()
@@ -47,11 +64,20 @@ export default class TaskList extends AppComponent<HTMLDivElement, HTMLElement> 
   		}
   	}
 
+
+	/**
+		 * method to remove stylings from the previous list after dragging the task to another list
+		 * @param event 
+		 */
   	dragLeaveHandler(event: DragEvent): void {
   		this.viewSection?.classList.remove('drags')
       
   	}
 
+	/**
+		 * method to update the task status on droping the task in a task list
+		 * @param event 
+		 */
   	drophandler(event: DragEvent): void {    
   		const taskID = event.dataTransfer!.getData('text/plain')
   		taskStatehandler.moveTask(
@@ -60,14 +86,15 @@ export default class TaskList extends AppComponent<HTMLDivElement, HTMLElement> 
   		)
       
   	}
+
+	/**
+		 * method to instantiate the Single Task class to add a task in the relevant task list
+		 */
   	private renderTasks(){
   		const listElement = <HTMLUListElement> document.getElementById(this.type)
   		listElement.innerHTML = ''
   		for (const task of this.assignedTasks){      
   			new SingleTask(this.viewSection.querySelector('ul')!.id, task)
-  			// const taskTile = document.createElement('li')
-  			// taskTile.textContent = task.taskContent
-  			// listElement.appendChild(taskTile)
   		}
   	}
 }

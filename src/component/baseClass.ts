@@ -1,5 +1,9 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-//Base class
+
+/**
+ * Base class - App component
+ * To get template component and update rendering component
+ */
 export default abstract class AppComponent <T extends HTMLDivElement | HTMLUListElement, U extends HTMLElement | HTMLLIElement>{
   	template: HTMLTemplateElement
   	renderTemplate: T
@@ -22,6 +26,12 @@ export default abstract class AppComponent <T extends HTMLDivElement | HTMLUList
   		this.attachComponents(insertAtStart)
   	}
 
+	/**
+		 * method to include the template to the redenering component
+		 * addTask component included 'afterbegin'
+		 * taskList components included 'beforeend'
+		 * @param insertAtStart 
+		 */
   	private attachComponents(insertAtStart: boolean){
   		this.renderTemplate.insertAdjacentElement(
   			insertAtStart ? 'afterbegin' : 'beforeend', 
