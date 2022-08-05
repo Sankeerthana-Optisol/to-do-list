@@ -4,11 +4,11 @@ Implemented To Do list application as an outcome of the Udemy course "Understand
 
 ## To run this application
 
-###install the dependencies
+#### install the dependencies
 
 `npm install`
 
-###Run the application
+#### Run the application
 
 `npm start`
 
